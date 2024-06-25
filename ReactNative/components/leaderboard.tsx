@@ -1,17 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet , TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface LeaderBoardProps {
   scores: { name: string; score: number }[];
 }
 
 const LeaderBoard: React.FC<LeaderBoardProps> = ({ scores }): JSX.Element => {
+  // Sort scores by descending order and add a rank
+  const sortedScores = scores.sort((a, b) => b.score - a.score).map((score, index) => ({
+    name: score.name,
+    score: score.score,
+    rank: index + 1 // Calculate rank based on sorted position
+  }));
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Leader Board</Text>
-      {scores.map((score, index) => (
-        <Text key={index} style={styles.scoreText}>
-          {score.name}: {score.score}
+      {sortedScores.map((score,i) => (
+        <Text key={score.name+i} style={styles.scoreText}>
+          {score.rank}. {score.name}: {score.score}
         </Text>
       ))}
     </View>
@@ -23,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   title: {
     fontSize: 24,
