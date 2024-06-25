@@ -1,10 +1,7 @@
 function longestCommonPrefix(strs) {
-    // ตรวจสอบความถูกต้องของจำนวนสตริง
     if (strs.length < 1 || strs.length > 200) {
         throw new Error("The array length must be between 1 and 200.");
     }
-
-    // ตรวจสอบความถูกต้องของสตริงแต่ละตัว
     for (let i = 0; i < strs.length; i++) {
         if (strs[i].length > 200) {
             throw new Error("Each string length must be 200 characters or less.");
@@ -28,13 +25,12 @@ function longestCommonPrefix(strs) {
     return prefix;
 }
 
-// ตัวอย่างการใช้งาน
 try {
     const strs1 = ["flower", "flow", "flight"];
-    console.log(longestCommonPrefix(strs1));  // Output: "fl"
+    console.log(longestCommonPrefix(strs1));
 
     const strs2 = ["dog", "racecar", "car"];
-    console.log(longestCommonPrefix(strs2));  // Output: ""
+    console.log(longestCommonPrefix(strs2));
 } catch (error) {
     console.error(error.message);
 }
