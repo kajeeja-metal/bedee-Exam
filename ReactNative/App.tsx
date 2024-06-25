@@ -13,6 +13,7 @@ const App = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [numberPlayer, setNumberPlayer] = useState(1);
   const [leaderBoard, setLeaderBoard] = useState<{ name: string; score: number }[]>([]);
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
@@ -29,7 +30,9 @@ const App = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      setLeaderBoard([...leaderBoard, { name: 'Player', score }]);
+      
+      setLeaderBoard([...leaderBoard, { name: numberPlayer +' Player', score }]);
+      setNumberPlayer(numberPlayer + 1)
       setShowLeaderBoard(true);
       setCurrentQuestionIndex(0);
       setScore(0);
