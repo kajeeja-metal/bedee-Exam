@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, ScrollView, RefreshControl } from 'react-native';
 import Question from './components/question';
 import LeaderBoard from './components/leaderboard';
 import { questionsData, Question as QuestionType  } from './services/mockup';
@@ -16,7 +16,7 @@ const App = () => {
   const [numberPlayer, setNumberPlayer] = useState(1);
   const [leaderBoard, setLeaderBoard] = useState<{ name: string; score: number }[]>([]);
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
-
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     const randomQuestions = getRandomQuestions(questionsData, 20);
     setQuestions(randomQuestions);
@@ -38,10 +38,26 @@ const App = () => {
       setScore(0);
     }
   };
+  const resetGame = () => {
+    const randomQuestions = getRandomQuestions(questionsData, 20);
+    setQuestions(randomQuestions);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setShowLeaderBoard(false);
+  };
+  const onRefresh = () => {
+    setRefreshing(true);
+    resetGame();
+    setRefreshing(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      {!showLeaderBoard ? (
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
+{!showLeaderBoard ? (
         <View style={styles.content}>
           {questions.length > 0 && (
             <Question
@@ -64,6 +80,8 @@ const App = () => {
         
         
       )}
+      </ScrollView>
+      
     </SafeAreaView>
   );
 };
