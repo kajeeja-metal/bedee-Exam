@@ -6,11 +6,11 @@ interface LeaderBoardProps {
 }
 
 const LeaderBoard: React.FC<LeaderBoardProps> = ({ scores }): JSX.Element => {
-  // Sort scores by descending order and add a rank
+  
   const sortedScores = scores.sort((a, b) => b.score - a.score).map((score, index) => ({
     name: score.name,
     score: score.score,
-    rank: index + 1 // Calculate rank based on sorted position
+    rank: index + 1 
   }));
 
   return (

@@ -57,7 +57,7 @@ const App = () => {
         contentContainerStyle={styles.content}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-{!showLeaderBoard ? (
+      {!showLeaderBoard ? (
         <View style={styles.content}>
           {questions.length > 0 && (
             <Question
